@@ -14,7 +14,7 @@ xgrid = (xrnge(1)+dx/2:dx:xrnge(2))'; % stimulus grid
 mgrid = (mrnge(1)+dx/2:dx:mrnge(2))'; % internal measurement grid
 
 % --- Set a prior ----   
-priortype = 2;  % valid options: 1 = gaussian, 2 = exp, 3 = cauchy
+priortype = 3;  % valid options: 1 = gaussian, 2 = exp, 3 = cauchy
 switch priortype
     case 1, prior = normpdf(xgrid,0,2);   % gaussian
     case 2, prior = exp(-abs(xgrid))/2;   % exponential
@@ -55,10 +55,10 @@ gbasis = gbasis./(dx*sum(gbasis)); % normalize so each sums to 1
 
 
 %% Now fit the model
-bwts0 = rand(nbasis,1)+1;  bwts0 = bwts0./sum(bwts0); % initial guess at weights
-[signsehat,priorhat,bwtshat,Mlihat,Mposthat] = fitBLSobserverModel_estimdata(xdat,xhat,gbasis,xgrid,mgrid);
+[signsehat,priorhat,bwtshat,logliFinal,Mposthat] = fitBLSobserverModel_estimdata(xdat,xhat,gbasis,xgrid,mgrid);
 
-BLSestimhat = Mposthat*xgrid*dx; % *inferred* BLS estimate for each m value
+% inferred BLS estimate for each m value
+BLSestimhat = Mposthat*xgrid*dx; 
 
 
 %% Make plots
@@ -86,7 +86,7 @@ hold on;
 plot(BLSestim,mgrid,'r'); axis image; 
 plot(xgrid,xgrid,'k--','linewidth',2);
 hold off;
-axis([xlm mrnge]);
+axis([xrnge mrnge]);
 legend('true BLS estimate', 'location', 'northwest');
 ylabel('measurement m');
 
@@ -97,6 +97,6 @@ hold on;
 plot(BLSestim,mgrid,'r',BLSestimhat,mgrid,'c--'); axis image; 
 plot(xgrid,xgrid,'k--','linewidth',2);
 hold off;
-axis([xlm mrnge]);
+axis([xrnge mrnge]);
 legend('true BLS', 'inferred BLS', 'location', 'northwest');
 xlabel('stimulus x');  ylabel('measurement m');
