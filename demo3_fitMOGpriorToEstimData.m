@@ -88,6 +88,7 @@ plot(xgrid,xgrid,'k--','linewidth',2);
 hold off;
 axis([xlm mrnge]);
 legend('true BLS estimate', 'location', 'northwest');
+ylabel('measurement m');
 
 subplot(224); % inferred posterior
 imagesc(xgrid,mgrid,Mposthat); axis image; axis xy;
@@ -98,4 +99,4 @@ plot(xgrid,xgrid,'k--','linewidth',2);
 hold off;
 axis([xlm mrnge]);
 legend('true BLS', 'inferred BLS', 'location', 'northwest');
-
+xlabel('stimulus x');  ylabel('measurement m');

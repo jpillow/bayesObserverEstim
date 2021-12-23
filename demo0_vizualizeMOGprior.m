@@ -1,9 +1,11 @@
 %  Visualize a Mixture of Gaussians Prior approximating a prior of interest
 
+
 % --- set parameters of basis Gaussians -------
-nbasis = 8; % number of Gaussian basis functions for prior 
+nbasis = 6; % number of Gaussian basis functions for prior 
 bctrs = zeros(1,nbasis);  % prior means
-bsigs = (2.^(0:nbasis-1))/8; % prior stdevs
+sigshft = 2; % shift the location of first sigma
+bsigs = (2.^(0-sigshft:nbasis-1-sigshft)); % prior stdevs
 
 % --- make grid over x axis ------
 dx = .1; % bin size
