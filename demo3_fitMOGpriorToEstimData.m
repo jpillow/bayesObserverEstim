@@ -73,7 +73,7 @@ xlabel('x'); ylabel('p(x)');
 
 subplot(223) % log scale
 semilogy(xgrid,prior,xgrid,priorhat, '--');
-title('log of prior'); box off;
+title('log-scale prior'); box off;
 legend('true prior', 'inferred prior');
 xlabel('x'); ylabel('p(x)');
 
